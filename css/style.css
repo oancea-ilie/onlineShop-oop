@@ -1,3 +1,10 @@
+.main-container-categorii h2, .main-avantaje h2 {
+  color: #76323F;
+  padding-top: 2rem;
+  padding-bottom: 1.5rem;
+  text-align: center;
+}
+
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
 /* Document
    ========================================================================== */
@@ -342,6 +349,294 @@ template {
   margin: 0;
   padding: 0;
   font-family: "Roboto Condensed", sans-serif;
+}
+
+header {
+  padding: 0 0.5rem;
+  background-color: #d7cec7;
+}
+
+main {
+  display: grid;
+  background-color: #cecece49;
+  padding-bottom: 1.5rem;
+}
+
+footer {
+  height: 90px;
+  background-color: #d7cec7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.first-header-left {
+  display: flex;
+  align-items: center;
+}
+.first-header-left .toggle-btn {
+  transition: 0.3s all;
+  font-size: 1.4rem;
+  color: #76323F;
+}
+.first-header-left .toggle-btn:hover {
+  color: #c09f80;
+}
+.first-header-left .brand {
+  margin-left: 0.8rem;
+  text-decoration: none;
+  color: #76323F;
+  font-size: 1.7rem;
+}
+.first-header-left .brand:hover {
+  color: #c09f80;
+}
+
+.first-header-right {
+  display: flex;
+  align-items: center;
+}
+.first-header-right a {
+  transition: 0.3s all;
+  font-size: 1.3rem;
+  padding-right: 0.3rem;
+  color: #76323F;
+}
+.first-header-right a:hover {
+  color: #c09f80;
+}
+.first-header-right a:last-of-type {
+  padding-right: 0;
+}
+.first-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+}
+
+.footer-social {
+  margin-top: 0.5rem;
+}
+.footer-social a {
+  padding-right: 0.5rem;
+}
+.footer-social a i {
+  font-size: 1.2rem;
+  color: #76323F;
+  transition: 0.3s all;
+}
+.footer-social a i:hover {
+  color: #c09f80;
+}
+.footer-social a:last-of-type {
+  padding-right: none;
+}
+
+.last-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 0.5rem;
+  padding-top: 0.5rem;
+}
+.last-header input {
+  width: 9rem;
+  border: 1px solid #76323F;
+  border-radius: 4px;
+  padding: 0.1rem 0;
+}
+.last-header input:focus {
+  outline: none;
+  border: 2px solid #76323F;
+}
+.last-header a {
+  color: #76323F;
+  transition: 0.3s all;
+  margin-left: 0.5rem;
+}
+.last-header a:hover {
+  color: #c09f80;
+}
+
+.main-avantaje-card {
+  height: 50px;
+  border: 1px solid #d7cec7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 30px;
+  margin: 0 1rem;
+  margin-bottom: 0.5rem;
+}
+.main-avantaje-card i {
+  color: #c09f80;
+  font-size: 2rem;
+  margin-right: 0.7rem;
+  width: 45px;
+}
+.main-avantaje-card p {
+  width: 120px;
+}
+
+.main-card-categorie {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 1rem;
+  background-color: white;
+  margin: 0 0.25rem;
+  margin-top: 0.5rem;
+  border-radius: 5px;
+  box-shadow: -1px 4px 14px -2px #dadada;
+  position: relative;
+  transition: 0.3s all;
+  cursor: pointer;
+}
+.main-card-categorie img {
+  width: 100%;
+}
+.main-card-categorie i {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+}
+.main-card-categorie p {
+  padding: 0.6rem 0;
+  text-align: center;
+}
+.main-card-categorie h3 {
+  color: #eb0303;
+}
+
+.main-card-categorie:hover {
+  box-shadow: -1px 5px 14px -2px #909090;
+}
+
+.main-categorie {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 0 0.25rem;
+}
+
+.main-container-categorii {
+  display: grid;
+}
+.main-img-container {
+  padding: 1rem;
+  max-width: 425px;
+  margin: 0 auto;
+}
+.main-img-container img {
+  border-radius: 5px;
+  width: 100%;
+}
+.main-img-container h2 {
+  margin-top: 0.5rem;
+  text-align: center;
+  color: #565656;
+}
+.main-img-container h2 span {
+  color: red;
+}
+
+.register-header {
+  background-color: #d7cec7;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.register-header h1 {
+  font-weight: 400;
+  margin: 0;
+  color: #76323F;
+}
+
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.register-container p {
+  margin-top: 0.3rem;
+  font-size: 1.2rem;
+  color: #76323F;
+}
+.register-container input {
+  margin-top: 0.3rem;
+  text-align: center;
+  font-size: 1.2rem;
+  color: #c09f80;
+  padding: 0.4rem 0;
+  border-radius: 30px;
+  border: 1px solid #c09f80;
+}
+.register-container input:focus {
+  outline: none;
+  border: 2px solid #c09f80;
+}
+.register-container a {
+  margin: auto;
+  width: 65%;
+  text-align: center;
+  text-decoration: none;
+  color: whitesmoke;
+  padding: 0.6rem 0;
+  border-radius: 30px;
+  border: 1px solid #c09f80;
+  margin-top: 1rem;
+  background-color: #c09f80;
+  transition: 0.3s all;
+}
+.register-container a:hover {
+  background-color: #76323F;
+}
+.register-container a:last-of-type {
+  background-color: white;
+  color: #c09f80;
+}
+.register-container a:last-of-type:hover {
+  color: #565656;
+}
+
+.register-main h2 {
+  text-align: center;
+  padding: 1rem 0;
+  color: #c09f80;
+  font-size: 1.6rem;
+}
+
+.toggle-section {
+  position: fixed;
+  left: 0;
+  top: 87px;
+  width: 250px;
+  height: 100%;
+  background-color: #c09f80;
+  z-index: 99;
+}
+.toggle-section .toggle-section-flex {
+  display: flex;
+  align-items: center;
+}
+.toggle-section .toggle-section-flex img {
+  width: 16px;
+  height: 16px;
+  margin: 0.7rem 0.5rem;
+  cursor: pointer;
+}
+.toggle-section .toggle-section-flex p {
+  transition: 0.3s all;
+  cursor: pointer;
+  color: #76323F;
+  margin: 0.5rem 0;
+}
+.toggle-section .toggle-section-flex:hover p {
+  color: #d7cec7;
 }
 
 /*# sourceMappingURL=style.css.map */
