@@ -2,9 +2,11 @@ import Customers from "../model/customers.js";
 
 export default class CustomersController{
     constructor(){
+        // this.restore();
         this.arr =JSON.parse(localStorage.getItem("customers"));
         this.list=[];
         this.toObject();
+
     }
 
     toObject=()=>{
@@ -13,12 +15,21 @@ export default class CustomersController{
         });
     }
 
+    restore=()=>{
+        let obj = new Customers(1,'restore','restore','restore','restore','restore');
+        this.list = [];
+        this.list.push(obj);
+        this.reload();
+    }
+
     reload=()=>{
         localStorage.setItem('customers',JSON.stringify(this.list));
     }
 
-    create=(customers)=>{
-        this.list.push(customers);
+    create=(obj)=>{
+        this.list.push(obj);
+
+        console.log(this.list);
 
         this.reload();
     }

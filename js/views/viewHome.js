@@ -7,6 +7,7 @@ export default class viewHome{
 
         this.header();
         this.main();
+        this.footer();
         this.registerBtn = document.querySelector('.register-btn');
         this.loginBtn = document.querySelector('.login-btn');
         this.toggleBtn = document.querySelector('.toggle-btn');
@@ -56,7 +57,7 @@ export default class viewHome{
         this.body.innerHTML+= 
         `
         <main>
-        <section class="toggle-section" style="display:none">
+        <section class="toggle-section">
             <section class="toggle-section-flex categorie-telefon">
                 <img src="svg/phone.svg" alt="">
                 <p>Telefoane Mobile</p>
@@ -110,6 +111,20 @@ export default class viewHome{
         `
     }
 
+    footer=()=>{
+        this.body.innerHTML +=
+        `
+        <footer>
+            <p>Copyright © 2021 | Oancea Ilie</p>
+            <section class="footer-social">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></i></a>
+            </section>
+        </footer>
+        `
+    }
+
     setCategories=()=>{
         this.categorii.innerHTML = '';
         this.categorii.innerHTML +=
@@ -117,14 +132,14 @@ export default class viewHome{
             <h2>Telefoane Mobile</h2>
             <section class="main-categorie">
                 <section class="main-card-categorie">
-                    <img src="img/telefon.jpg" height="120px" alt="">
+                    <img src="img/telefon.jpg" alt="">
                     <i class="far fa-heart"></i>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
                     <h3 class="pret-produs">1.000 Lei</h3>
                 </section>
 
                 <section class="main-card-categorie">
-                    <img src="img/telefon.jpg" height="120px" alt="">
+                    <img src="img/telefon.jpg" alt="">
                     <i class="far fa-heart"></i>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
                     <h3 class="pret-produs">1.000 Lei</h3>
@@ -134,14 +149,14 @@ export default class viewHome{
             <h2>Desktop Pc</h2>
             <section class="main-categorie">
                 <section class="main-card-categorie">
-                    <img src="img/desktop.jpg"  height="120px" alt="">
+                    <img src="img/desktop.jpg"  alt="">
                     <i class="far fa-heart"></i>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
                     <h3 class="pret-produs">2.000 Lei</h3>
                 </section>
 
                 <section class="main-card-categorie">
-                    <img src="img/desktop.jpg" height="120px" alt="">
+                    <img src="img/desktop.jpg" alt="">
                     <i class="far fa-heart"></i>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
                     <h3 class="pret-produs">2.000 Lei</h3>
@@ -151,14 +166,14 @@ export default class viewHome{
             <h2>Leptop / Notebook</h2>
             <section class="main-categorie">
                 <section class="main-card-categorie">
-                    <img src="img/leptop.jpg" height="120px" alt="">
+                    <img src="img/leptop.jpg"  alt="">
                     <i class="far fa-heart"></i>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
                     <h3 class="pret-produs">3.000 Lei</h3>
                 </section>
 
                 <section class="main-card-categorie">
-                    <img src="img/leptop.jpg" height="120px" alt="">
+                    <img src="img/leptop.jpg" alt="">
                     <i class="far fa-heart"></i>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
                     <h3 class="pret-produs">3.000 Lei</h3>
@@ -168,14 +183,14 @@ export default class viewHome{
             <h2>Televizoare</h2>
             <section class="main-categorie">
                 <section class="main-card-categorie">
-                    <img src="img/televizor.jpg" height="120px" alt="">
+                    <img src="img/televizor.jpg"  alt="">
                     <i class="far fa-heart"></i>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
                     <h3 class="pret-produs">4.000 Lei</h3>
                 </section>
 
                 <section class="main-card-categorie">
-                    <img src="img/televizor.jpg" height="120px" alt="">
+                    <img src="img/televizor.jpg"  alt="">
                     <i class="far fa-heart"></i>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
                     <h3 class="pret-produs">4.000 Lei</h3>
@@ -185,14 +200,14 @@ export default class viewHome{
             <h2>Sisteme Audio</h2>
             <section class="main-categorie">
                 <section class="main-card-categorie">
-                    <img src="img/boxe.jpg" height="140px" alt="">
+                    <img src="img/boxe.jpg" alt="">
                     <i class="far fa-heart"></i>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
                     <h3 class="pret-produs">500 Lei</h3>
                 </section>
 
                 <section class="main-card-categorie">
-                    <img src="img/boxe.jpg" height="140px" alt="">
+                    <img src="img/boxe.jpg" alt="">
                     <i class="far fa-heart"></i>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
                     <h3 class="pret-produs">500 Lei</h3>
@@ -211,12 +226,12 @@ export default class viewHome{
 
     handleToggleBtn=()=>{
         if(this.onOf ==0){
-            this.toggleSection.style.display = 'block';
+            this.toggleSection.style.transform = 'translateX(0%)';
             this.onOf = 1;
             this.bars.classList.remove('fa-bars');
             this.bars.classList.add('fa-times');
         }else{
-            this.toggleSection.style.display = 'none';
+            this.toggleSection.style.transform = 'translateX(-100%)';
             this.onOf = 0;
             this.bars.classList.remove('fa-times');
             this.bars.classList.add('fa-bars');

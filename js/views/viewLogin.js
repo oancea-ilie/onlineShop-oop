@@ -1,3 +1,4 @@
+import viewHome from "./viewHome.js";
 
 export default class viewLogin{
     constructor(){
@@ -5,6 +6,12 @@ export default class viewLogin{
         this.body = document.querySelector('body');
 
         this.header();
+
+        this.loginBtn = document.querySelector('.login-btn');
+        this.loginBtn.addEventListener('click', this.handleLogin);
+
+        this.homeBtn = document.querySelector('.home-btn');
+        this.homeBtn.addEventListener('click',this.handleHome);
     }
 
     header=()=>{
@@ -23,9 +30,16 @@ export default class viewLogin{
                 <p>Parola:</p>
                 <input type="password">
                 <a href="#" class="login-btn">Conecteaza-te</a>
-                <a href="#" class="login-btn">Inregistreaza-te</a>
+                <a href="#" class="home-btn">Home</a>
             </section>
         </section>
         `;
+    }
+    handleLogin=()=>{
+
+    }
+
+    handleHome=()=>{
+        let nou = new viewHome();
     }
 }
