@@ -29,8 +29,6 @@ export default class CustomersController{
     create=(obj)=>{
         this.list.push(obj);
 
-        console.log(this.list);
-
         this.reload();
     }
 

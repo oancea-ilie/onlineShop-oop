@@ -1,10 +1,13 @@
 import Categories from "../model/categories.js";
-
 export default class CategoriesController{
     constructor(){
-        this.arr =JSON.parse(localStorage.getItem("categories"));
         this.list=[];
+        this.arr =JSON.parse(localStorage.getItem("categories"));
         this.toObject();
+
+        this.categorii = document.querySelector('.main-container-categorii');
+        this.toggleSection = document.querySelector('.toggle-section');
+
     }
 
     toObject=()=>{
@@ -13,8 +16,35 @@ export default class CategoriesController{
         });
     }
 
+    restore=()=>{
+        let obj = new Categories(1,'restore','restore','restore');
+        this.list = [];
+        this.create(obj);
+    }
+
     reload=()=>{
         localStorage.setItem('categories',JSON.stringify(this.list));
+    }
+
+    toCard=(category)=>{
+        this.categorii.innerHTML +=
+        `
+        <h2>${category.description}</h2>
+        <section class="main-categorie main-categorie-${category.name}">
+
+        </section>
+        `
+    }
+
+    toToggleCategories=(category)=>{
+        this.toggleSection.innerHTML +=
+        `
+        <section class="toggle-section-flex categorie-${category.name}">
+            <img src="${category.image}" alt="">
+            <p>${category.description}</p>
+        </section>
+        `;
+        
     }
 
     create=(categories)=>{
