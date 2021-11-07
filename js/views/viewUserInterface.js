@@ -1,6 +1,7 @@
 import viewHome from "./viewHome.js"
 import viewFavorite from "./viewFavorite.js"
-import viewCard from "./viewCard.js"
+import CategoriesController from "../controller/categoriesController.js";
+import ProductsController from "../controller/productsController.js";
 
 export default class viewUserInterface{
     constructor(username){
@@ -21,17 +22,23 @@ export default class viewUserInterface{
         this.logOutBtn = document.querySelector('.logout-btn');
         this.logOutBtn.addEventListener('click',this.handleLogOut);
 
-        this.setCategories();
         this.toggleBtn.addEventListener("click",this.handleToggleBtn);
-
 
         this.favoriteBtn = document.querySelector('.favorite-btn');
         this.favoriteBtn.addEventListener('click',this.handleBigFavorite);
         
         this.cardBtn = document.querySelector('.cart-btn');
-
+        
+        this.categoryController = new CategoriesController();
+        this.setCategories();
+        this.setToggleCategories();
+        
+        this.productController = new ProductsController();
+        this.setProductsToCategories();
+        
         this.favorite = document.querySelectorAll('.main-card-categorie i');
         this.handleFavorite();
+        this.handleFavoriteStatus();
     }
 
     header=()=>{
@@ -122,105 +129,27 @@ export default class viewUserInterface{
 
     setCategories=()=>{
         this.categorii.innerHTML = '';
-        this.categorii.innerHTML +=
-        `
-            <h2>Telefoane Mobile</h2>
-            <section class="main-categorie">
-                <section class="main-card-categorie">
-                    <img src="img/telefon.jpg" alt="">
-                    <i class="far fa-heart"></i>
-                    <h2>Telefon</h2>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                    <h3 class="pret-produs">1.000 Lei</h3>
-                </section>
 
-                <section class="main-card-categorie">
-                    <img src="img/telefon.jpg" alt="">
-                    <i class="far fa-heart"></i>
-                    <h2>Telefon</h2>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                    <h3 class="pret-produs">1.000 Lei</h3>
-                </section>
-            </section>
-
-            <h2>Desktop Pc</h2>
-            <section class="main-categorie">
-                <section class="main-card-categorie">
-                    <img src="img/desktop.jpg"  alt="">
-                    <i class="far fa-heart"></i>
-                    <h2>Telefon</h2>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                    <h3 class="pret-produs">2.000 Lei</h3>
-                </section>
-
-                <section class="main-card-categorie">
-                    <img src="img/desktop.jpg" alt="">
-                    <i class="far fa-heart"></i>
-                    <h2>Telefon</h2>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                    <h3 class="pret-produs">2.000 Lei</h3>
-                </section>
-            </section>
-
-            <h2>Leptop / Notebook</h2>
-            <section class="main-categorie">
-                <section class="main-card-categorie">
-                    <img src="img/leptop.jpg"  alt="">
-                    <i class="far fa-heart"></i>
-                    <h2>Telefon</h2>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                    <h3 class="pret-produs">3.000 Lei</h3>
-                </section>
-
-                <section class="main-card-categorie">
-                    <img src="img/leptop.jpg" alt="">
-                    <i class="far fa-heart"></i>
-                    <h2>Telefon</h2>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                    <h3 class="pret-produs">3.000 Lei</h3>
-                </section>
-            </section>
-
-            <h2>Televizoare</h2>
-            <section class="main-categorie">
-                <section class="main-card-categorie">
-                    <img src="img/televizor.jpg"  alt="">
-                    <i class="far fa-heart"></i>
-                    <h2>Telefon</h2>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                    <h3 class="pret-produs">4.000 Lei</h3>
-                </section>
-
-                <section class="main-card-categorie">
-                    <img src="img/televizor.jpg"  alt="">
-                    <i class="far fa-heart"></i>
-                    <h2>Telefon</h2>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                    <h3 class="pret-produs">4.000 Lei</h3>
-                </section>
-            </section>
-
-            <h2>Sisteme Audio</h2>
-            <section class="main-categorie">
-                <section class="main-card-categorie">
-                    <img src="img/boxe.jpg" alt="">
-                    <i class="far fa-heart"></i>
-                    <h2>Telefon</h2>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                    <h3 class="pret-produs">500 Lei</h3>
-                </section>
-
-                <section class="main-card-categorie">
-                    <img src="img/boxe.jpg" alt="">
-                    <i class="far fa-heart"></i>
-                    <h2>Telefon</h2>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                    <h3 class="pret-produs">500 Lei</h3>
-                </section>
-            </section>
-        `
+        for(let obj of this.categoryController.list){
+            this.categoryController.toCard(obj);
+        }
     }
 
+    setToggleCategories=()=>{
+
+        this.toggleSection.innerHTML = '';
+
+        for(let obj of this.categoryController.list){
+            this.categoryController.toToggleCategories(obj);
+        }
+    }
+
+    setProductsToCategories=()=>{
+
+        for(let obj of this.productController.list){
+            this.productController.toCategory(obj);
+        }
+    }
 
     handleToggleBtn=()=>{
         if(this.onOf ==0){
@@ -244,29 +173,48 @@ export default class viewUserInterface{
 
     handleFavorite=()=>{
         this.favorite.forEach((e)=>{
-            e.addEventListener('mouseover',()=>{
-                e.classList.remove('far');
-                e.classList.remove('fa-heart');
-        
-                e.classList.add('fas');
-                e.classList.add('fa-heart');
-            });
-        
-            e.addEventListener('mouseout',()=>{
-                e.classList.remove('fas');
-                e.classList.remove('fa-heart');
-        
-                e.classList.add('far');
-                e.classList.add('fa-heart');
-            });
-
+                e.addEventListener('mouseover', ()=>{
+                    e.classList.remove('far');
+                    e.classList.remove('fa-heart');
             
-            e.addEventListener('click',()=>{
-                let productName = e.parentNode.children[2].textContent;
+                    e.classList.add('fas');
+                    e.classList.add('fa-heart');
+                });
 
-                let nou = new viewFavorite(this.username, productName);
-            });
-        })
+                e.addEventListener('mouseout', ()=>{
+                    e.classList.remove('fas');
+                    e.classList.remove('fa-heart');
+            
+                    e.classList.add('far');
+                    e.classList.add('fa-heart');
+                });
+
+                e.addEventListener('click',()=>{
+                    let productName = e.parentNode.children[2].textContent;
+                    let status= this.productController.getFavoriteStatus(productName);
+
+                    if(status ==0){
+                        e.parentNode.removeChild(e);
+                        this.productController.setFavoriteProduct(productName,1);
+                    }
+                });
+
+        });
+    }
+
+    handleFavoriteStatus=()=>{
+        let allFavoriteIcons = document.querySelectorAll('.fa-heart');
+
+        for(let i = 1; i<this.productController.list.length; i++){
+           let product = allFavoriteIcons[i].parentNode.children[2].textContent;
+           let status= this.productController.getFavoriteStatus(product);
+
+           if(status == 1){
+               allFavoriteIcons[i].parentNode.removeChild(allFavoriteIcons[i]);
+           }else{
+               allFavoriteIcons[i].parentNode.appendChild(allFavoriteIcons[i]);
+           }
+        }
     }
 
     handleLogOut=()=>{

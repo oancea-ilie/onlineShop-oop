@@ -1,7 +1,7 @@
 import viewRegister from "./viewRegister.js"
 import viewLogin from "./viewLogin.js"
 import CategoriesController from "../controller/categoriesController.js";
-import Categories from "../model/categories.js";
+import ProductsController from "../controller/productsController.js";
 
 export default class viewHome{
     constructor(){
@@ -21,18 +21,19 @@ export default class viewHome{
         this.searchInput = document.querySelector('.search-input');
         this.categorii = document.querySelector('.main-container-categorii');
 
-        // this.setCategories();
         this.toggleBtn.addEventListener("click",this.handleToggleBtn);
         this.registerBtn.addEventListener('click',this.handleRegister);
         this.loginBtn.addEventListener('click',this.handleLogin);
-        
-
-        this.favorite = document.querySelectorAll('.main-card-categorie i');
-        this.handleFavorite();
 
         this.categoryController = new CategoriesController();
         this.setCategories();
         this.setToggleCategories();
+
+        this.productController = new ProductsController();
+        this.setProductsToCategories();
+
+        this.favorite = document.querySelectorAll('.main-card-categorie i');
+        this.handleFavorite();
     }
 
     header=()=>{
@@ -133,107 +134,6 @@ export default class viewHome{
         </footer>
         `
     }
-
-    // setCategories=()=>{
-    //     this.categorii.innerHTML = '';
-    //     this.categorii.innerHTML +=
-    //     `
-    //         <h2>Telefoane Mobile</h2>
-    //         <section class="main-categorie">
-    //             <section class="main-card-categorie">
-    //                 <img src="img/telefon.jpg" alt="">
-    //                 <i class="far fa-heart"></i>
-    //                 <h2>Telefon</h2>
-    //                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-    //                 <h3 class="pret-produs">1.000 Lei</h3>
-    //             </section>
-
-    //             <section class="main-card-categorie">
-    //                 <img src="img/telefon.jpg" alt="">
-    //                 <i class="far fa-heart"></i>
-    //                 <h2>Telefon</h2>
-    //                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-    //                 <h3 class="pret-produs">1.000 Lei</h3>
-    //             </section>
-    //         </section>
-
-    //         <h2>Desktop Pc</h2>
-    //         <section class="main-categorie">
-    //             <section class="main-card-categorie">
-    //                 <img src="img/desktop.jpg"  alt="">
-    //                 <i class="far fa-heart"></i>
-    //                 <h2>Telefon</h2>
-    //                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-    //                 <h3 class="pret-produs">2.000 Lei</h3>
-    //             </section>
-
-    //             <section class="main-card-categorie">
-    //                 <img src="img/desktop.jpg" alt="">
-    //                 <i class="far fa-heart"></i>
-    //                 <h2>Telefon</h2>
-    //                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-    //                 <h3 class="pret-produs">2.000 Lei</h3>
-    //             </section>
-    //         </section>
-
-    //         <h2>Leptop / Notebook</h2>
-    //         <section class="main-categorie">
-    //             <section class="main-card-categorie">
-    //                 <img src="img/leptop.jpg"  alt="">
-    //                 <i class="far fa-heart"></i>
-    //                 <h2>Telefon</h2>
-    //                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-    //                 <h3 class="pret-produs">3.000 Lei</h3>
-    //             </section>
-
-    //             <section class="main-card-categorie">
-    //                 <img src="img/leptop.jpg" alt="">
-    //                 <i class="far fa-heart"></i>
-    //                 <h2>Telefon</h2>
-    //                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-    //                 <h3 class="pret-produs">3.000 Lei</h3>
-    //             </section>
-    //         </section>
-
-    //         <h2>Televizoare</h2>
-    //         <section class="main-categorie">
-    //             <section class="main-card-categorie">
-    //                 <img src="img/televizor.jpg"  alt="">
-    //                 <i class="far fa-heart"></i>
-    //                 <h2>Telefon</h2>
-    //                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-    //                 <h3 class="pret-produs">4.000 Lei</h3>
-    //             </section>
-
-    //             <section class="main-card-categorie">
-    //                 <img src="img/televizor.jpg"  alt="">
-    //                 <i class="far fa-heart"></i>
-    //                 <h2>Telefon</h2>
-    //                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-    //                 <h3 class="pret-produs">4.000 Lei</h3>
-    //             </section>
-    //         </section>
-
-    //         <h2>Sisteme Audio</h2>
-    //         <section class="main-categorie">
-    //             <section class="main-card-categorie">
-    //                 <img src="img/boxe.jpg" alt="">
-    //                 <i class="far fa-heart"></i>
-    //                 <h2>Telefon</h2>
-    //                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-    //                 <h3 class="pret-produs">500 Lei</h3>
-    //             </section>
-
-    //             <section class="main-card-categorie">
-    //                 <img src="img/boxe.jpg" alt="">
-    //                 <i class="far fa-heart"></i>
-    //                 <h2>Telefon</h2>
-    //                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-    //                 <h3 class="pret-produs">500 Lei</h3>
-    //             </section>
-    //         </section>
-    //     `
-    // }
     
     setCategories=()=>{
         this.categorii.innerHTML = '';
@@ -249,6 +149,13 @@ export default class viewHome{
 
         for(let obj of this.categoryController.list){
             this.categoryController.toToggleCategories(obj);
+        }
+    }
+
+    setProductsToCategories=()=>{
+
+        for(let obj of this.productController.list){
+            this.productController.toCategory(obj);
         }
     }
 

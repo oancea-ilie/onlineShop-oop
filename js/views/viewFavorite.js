@@ -1,4 +1,5 @@
 import viewHome from "./viewHome.js"
+import ProductsController from "../controller/productsController.js";
 
 export default class viewFavorite{
     constructor(username,productName){
@@ -9,28 +10,25 @@ export default class viewFavorite{
         this.header();
         this.main();
 
+        //header
         this.toggleBtn = document.querySelector('.toggle-btn');
         this.bars = document.querySelector('.fa-bars');
         this.toggleSection = document.querySelector(".toggle-section");
-
         this.onOf = 0;
         this.brand = document.querySelector('.brand');
-
         this.searchBtn = document.querySelector('.search-btn');
         this.searchInput = document.querySelector('.search-input');
-
-        this.categorii = document.querySelector('.main-container-categorii');
-
         this.userBtn = document.querySelector('.user-btn');
-
         this.logOutBtn = document.querySelector('.logout-btn');
         this.logOutBtn.addEventListener('click',this.handleLogOut);
-
-        this.setCategories();
         this.toggleBtn.addEventListener("click",this.handleToggleBtn);
-
         this.cardBtn = document.querySelector('.cart-btn');
 
+        //main
+
+        this.container = document.querySelector('main'); 
+        this.productController = new ProductsController();
+        this.setProducts();
     }
 
     header=()=>{
@@ -65,53 +63,6 @@ export default class viewFavorite{
         this.body.innerHTML+= 
         `
         <main>
-        <section class="toggle-section">
-            <section class="toggle-section-flex categorie-telefon">
-                <img src="svg/phone.svg" alt="">
-                <p>Telefoane Mobile</p>
-            </section>
-
-            <section class="toggle-section-flex categorie-pc" >
-                <img src="svg/pc.svg" alt="">
-                <p>Desktop Pc</p>
-            </section>
-
-            <section class="toggle-section-flex categorie-leptop">
-                <img src="svg/laptop.svg" alt="">
-                <p>Leptop / Notebook</p>
-            </section>
-
-            <section class="toggle-section-flex categorie-tv">
-                <img src="svg/tv.svg" alt="">
-                <p>Televizoare</p>
-            </section>
-            <section class="toggle-section-flex categorie-audio" >
-                <img src="svg/audio.svg" alt="">
-                <p>Sisteme Audio</p>
-            </section>
-        </section>
-            <section class="main-img-container">
-                <img src="img/cupon.jpg" alt="">
-                <h2>Inregistreaza-te acum si primesti un voucher in valoare de <span>20 de lei!</span></h2>
-            </section>
-
-            <section class="main-avantaje">
-                <h2>Avantaje</h2>
-                <section class="main-avantaje-card">
-                    <i class="fas fa-hand-holding-usd"></i>
-                    <p>Economisesti bani</p>
-                </section>
-
-                <section class="main-avantaje-card">
-                    <i class="fas fa-shield-alt"></i>
-                    <p>Garantie extinsa</p>
-                </section>
-                <section class="main-avantaje-card">
-                    <i class="fas fa-truck"></i>
-                    <p>Transport gratuit</p>
-                </section>
-            </section>
-
             <section class="main-container-categorii">
             
             </section>
@@ -119,37 +70,28 @@ export default class viewFavorite{
         `
     }
 
-    setCategories=()=>{
-        this.categorii.innerHTML = '';
-        this.categorii.innerHTML +=
-        `
-            <h2>Telefoane Mobile</h2>
-            <section class="main-categorie">
-
-            </section>
-
-            <h2>Desktop Pc</h2>
-            <section class="main-categorie">
-
-            </section>
-
-            <h2>Leptop / Notebook</h2>
-            <section class="main-categorie">
-
-            </section>
-
-            <h2>Televizoare</h2>
-            <section class="main-categorie">
-
-            </section>
-
-            <h2>Sisteme Audio</h2>
-            <section class="main-categorie">
-
-            </section>
-        `
+    setProducts=()=>{
+        console.log(this.productController.list);
+        this.productController.list.forEach(e=>{
+            if(e.favariteStatus == 1){
+                console.log('e');
+                this.toCard(e);
+            }
+        });
     }
 
+    toCard=(product)=>{
+        this.container.innerHTML +=
+        `
+        <section class="main-card-categorie card-${product.category}">
+            <img src="${product.image}" alt="">
+            <i class="fas fa-heart"></i>
+            <h2>${product.name}</h2>
+            <p>${product.description}</p>
+            <h3 class="pret-produs">${product.price} Lei</h3>
+        </section>
+        `;
+    }
 
     handleToggleBtn=()=>{
         if(this.onOf ==0){
@@ -169,4 +111,5 @@ export default class viewFavorite{
     handleLogOut=()=>{
         let nou = new viewHome();
     }
+
 }

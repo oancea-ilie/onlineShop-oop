@@ -5,16 +5,24 @@ export default class ProductsController{
         this.arr =JSON.parse(localStorage.getItem("products"));
         this.list=[];
         this.toProducts();
+        this.categorii = document.querySelectorAll(".main-categorie");
+
     }
 
     toProducts=()=>{
 
         this.arr.forEach(e => {
 
-            this.list.push(new Product(e.id,e.name,e.price,e.description,e.image,e.category,e.create_date,e.stock));
+            this.list.push(new Product(e.id,e.name,e.price,e.description,e.image,e.category,e.create_date,e.stock,e.favariteStatus,e.cartStatus));
             
         });
 
+    }
+
+    restore=()=>{
+        let obj = new Product(0,'restore','restore','restore','restore','restore','restore','restore',0,0);
+        this.list = [];
+        this.create(obj);
     }
 
     reload=()=>{
@@ -26,6 +34,27 @@ export default class ProductsController{
         this.list.push(product);
 
         this.reload();
+    }
+
+    toCard=(product,categorie)=>{
+        categorie.innerHTML +=
+        `
+        <section class="main-card-categorie card-${product.category}">
+            <img src="${product.image}" alt="">
+            <i class="far fa-heart"></i>
+            <h2>${product.name}</h2>
+            <p>${product.description}</p>
+            <h3 class="pret-produs">${product.price} Lei</h3>
+        </section>
+        `;
+    }
+
+    toCategory=(product)=>{
+        this.categorii.forEach((e)=>{
+            if(e.classList.contains(`main-categorie-${product.category}`)){
+                this.toCard(product,e);
+            }
+        })
     }
 
     delete=(id)=>{
@@ -105,6 +134,46 @@ export default class ProductsController{
         this.reload();
 
     }
+
+    updateFavoriteStatus=(id ,status)=>{
+    
+        let obj = this.getItemById(id);
+
+        obj.favariteStatus = status;
+
+        this.reload();
+
+    }
+
+    updateCartStatus=(id ,status)=>{
+    
+        let obj = this.getItemById(id);
+
+        obj.cartStatus = status;
+
+        this.reload();
+
+    }
+    
+    setFavoriteProduct=(name,status)=>{
+        this.list.forEach(e=>{
+            if(name == e.name){
+                e.favariteStatus = status;
+            }
+        });
+
+        this.reload();
+    }
+
+    getFavoriteStatus=(productName)=>{
+        for(let obj of this.list){
+            if(productName == obj.name){
+                return obj.favariteStatus;
+            }
+        }
+    }
+
+    
 
    
 }
