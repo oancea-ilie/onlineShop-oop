@@ -1,10 +1,10 @@
 import viewHome from "./viewHome.js"
 import ProductsController from "../controller/productsController.js";
+import viewUserInterface from "./viewUserInterface.js";
 
 export default class viewFavorite{
-    constructor(username,productName){
+    constructor(username){
         this.username = username;
-        this.productName = productName;
         this.body = document.querySelector('body');
 
         this.header();
@@ -16,19 +16,24 @@ export default class viewFavorite{
         this.toggleSection = document.querySelector(".toggle-section");
         this.onOf = 0;
         this.brand = document.querySelector('.brand');
+        
         this.searchBtn = document.querySelector('.search-btn');
         this.searchInput = document.querySelector('.search-input');
         this.userBtn = document.querySelector('.user-btn');
         this.logOutBtn = document.querySelector('.logout-btn');
+
         this.logOutBtn.addEventListener('click',this.handleLogOut);
         this.toggleBtn.addEventListener("click",this.handleToggleBtn);
+        this.brand.addEventListener('click',this.handleBrand);
         this.cardBtn = document.querySelector('.cart-btn');
 
         //main
 
-        this.container = document.querySelector('main'); 
+        this.container = document.querySelector('.favorite-container'); 
         this.productController = new ProductsController();
         this.setProducts();
+        this.favoriteBtns = document.querySelectorAll(".main-card-categorie i");
+        this.handleFavoriteBtn();
     }
 
     header=()=>{
@@ -63,7 +68,35 @@ export default class viewFavorite{
         this.body.innerHTML+= 
         `
         <main>
-            <section class="main-container-categorii">
+
+        <section class="toggle-section">
+            <section class="toggle-section-flex categorie-telefon">
+                <img src="svg/phone.svg" alt="">
+                <p>Telefoane Mobile</p>
+            </section>
+
+            <section class="toggle-section-flex categorie-pc" >
+                <img src="svg/pc.svg" alt="">
+                <p>Desktop Pc</p>
+            </section>
+
+            <section class="toggle-section-flex categorie-leptop">
+                <img src="svg/laptop.svg" alt="">
+                <p>Leptop / Notebook</p>
+            </section>
+
+            <section class="toggle-section-flex categorie-tv">
+                <img src="svg/tv.svg" alt="">
+                <p>Televizoare</p>
+            </section>
+            <section class="toggle-section-flex categorie-audio" >
+                <img src="svg/audio.svg" alt="">
+                <p>Sisteme Audio</p>
+        </section>
+        </section>
+
+
+            <section class="favorite-container">
             
             </section>
         </main>
@@ -71,10 +104,8 @@ export default class viewFavorite{
     }
 
     setProducts=()=>{
-        console.log(this.productController.list);
         this.productController.list.forEach(e=>{
             if(e.favariteStatus == 1){
-                console.log('e');
                 this.toCard(e);
             }
         });
@@ -91,6 +122,23 @@ export default class viewFavorite{
             <h3 class="pret-produs">${product.price} Lei</h3>
         </section>
         `;
+    }
+
+    handleFavoriteBtn=()=>{
+        this.favoriteBtns.forEach(e=>{
+
+            e.addEventListener('click',()=>{
+                let productName = e.parentNode.children[2].textContent;
+                let parent = e.parentNode;
+                this.container.removeChild(parent);
+                this.productController.setFavoriteProduct(productName,0);
+               console.log( this.favoriteBtns.length);
+            });
+        })
+    }
+
+    handleBrand=()=>{
+        let nou = new viewUserInterface(this.username);
     }
 
     handleToggleBtn=()=>{

@@ -37,8 +37,8 @@ export default class viewUserInterface{
         this.setProductsToCategories();
         
         this.favorite = document.querySelectorAll('.main-card-categorie i');
-        this.handleFavorite();
         this.handleFavoriteStatus();
+        this.handleFavorite();
     }
 
     header=()=>{
@@ -173,47 +173,58 @@ export default class viewUserInterface{
 
     handleFavorite=()=>{
         this.favorite.forEach((e)=>{
-                e.addEventListener('mouseover', ()=>{
-                    e.classList.remove('far');
-                    e.classList.remove('fa-heart');
-            
-                    e.classList.add('fas');
-                    e.classList.add('fa-heart');
-                });
-
-                e.addEventListener('mouseout', ()=>{
-                    e.classList.remove('fas');
-                    e.classList.remove('fa-heart');
-            
-                    e.classList.add('far');
-                    e.classList.add('fa-heart');
-                });
+            let productName = e.parentNode.children[2].textContent;
+            let status= this.productController.getFavoriteStatus(productName);
 
                 e.addEventListener('click',()=>{
-                    let productName = e.parentNode.children[2].textContent;
-                    let status= this.productController.getFavoriteStatus(productName);
-
                     if(status ==0){
-                        e.parentNode.removeChild(e);
                         this.productController.setFavoriteProduct(productName,1);
+                        e.classList.remove('far');
+                        e.classList.remove('fa-heart');
+                
+                        e.classList.add('fas');
+                        e.classList.add('fa-heart');
+                        
+                    }else{
+                        this.productController.setFavoriteProduct(productName,0);
+
+                        e.classList.remove('fas');
+                        e.classList.remove('fa-heart');
+                
+                        e.classList.add('far');
+                        e.classList.add('fa-heart');
                     }
                 });
 
         });
     }
 
+
     handleFavoriteStatus=()=>{
         let allFavoriteIcons = document.querySelectorAll('.fa-heart');
 
-        for(let i = 1; i<this.productController.list.length; i++){
-           let product = allFavoriteIcons[i].parentNode.children[2].textContent;
-           let status= this.productController.getFavoriteStatus(product);
 
-           if(status == 1){
-               allFavoriteIcons[i].parentNode.removeChild(allFavoriteIcons[i]);
-           }else{
-               allFavoriteIcons[i].parentNode.appendChild(allFavoriteIcons[i]);
-           }
+        for(let i = 1; i< allFavoriteIcons.length; i++){
+            let e = allFavoriteIcons[i];
+
+            let product = e.parentNode.children[2].textContent;
+            let status  = this.productController.getFavoriteStatus(product);
+
+            if(status == 1){
+
+                if(e.classList.contains('far')){
+                   e.classList.remove('far');
+                }
+
+                e.classList.add('fas');
+            }else{
+
+                if(e.classList.contains('fas')){
+                    e.classList.remove('fas');
+                }
+
+                e.classList.add('far');
+            }
         }
     }
 
