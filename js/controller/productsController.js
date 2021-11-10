@@ -173,6 +173,15 @@ export default class ProductsController{
         }
     }
 
+    getProductByName=(name)=>{
+        for(let obj of this.list){
+            if(name == obj.name){
+                return obj;
+            }
+        }
+        
+    }
+
 
     
 

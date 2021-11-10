@@ -1,6 +1,8 @@
 import viewHome from "./viewHome.js"
 import ProductsController from "../controller/productsController.js";
 import viewUserInterface from "./viewUserInterface.js";
+import viewProduct from "./viewProduct.js";
+import viewCart from "./viewCart.js";
 
 export default class viewFavorite{
     constructor(username){
@@ -26,14 +28,18 @@ export default class viewFavorite{
         this.toggleBtn.addEventListener("click",this.handleToggleBtn);
         this.brand.addEventListener('click',this.handleBrand);
         this.cardBtn = document.querySelector('.cart-btn');
+        this.cardBtn.addEventListener('click',this.handleCardBtn);
 
         //main
 
         this.container = document.querySelector('.favorite-container'); 
         this.productController = new ProductsController();
         this.setProducts();
-        this.favoriteBtns = document.querySelectorAll(".main-card-categorie i");
+        this.favoriteBtns = document.querySelectorAll(".favorite-product i");
         this.handleFavoriteBtn();
+
+        this.allProducts = document.querySelectorAll('.favorite-product');
+        this.handleAllProducts();
     }
 
     header=()=>{
@@ -69,30 +75,30 @@ export default class viewFavorite{
         `
         <main>
 
-        <section class="toggle-section">
-            <section class="toggle-section-flex categorie-telefon">
-                <img src="svg/phone.svg" alt="">
-                <p>Telefoane Mobile</p>
-            </section>
+            <section class="toggle-section">
+                <section class="toggle-section-flex categorie-telefon">
+                    <img src="svg/phone.svg" alt="">
+                    <p>Telefoane Mobile</p>
+                </section>
 
-            <section class="toggle-section-flex categorie-pc" >
-                <img src="svg/pc.svg" alt="">
-                <p>Desktop Pc</p>
-            </section>
+                <section class="toggle-section-flex categorie-pc" >
+                    <img src="svg/pc.svg" alt="">
+                    <p>Desktop Pc</p>
+                </section>
 
-            <section class="toggle-section-flex categorie-leptop">
-                <img src="svg/laptop.svg" alt="">
-                <p>Leptop / Notebook</p>
-            </section>
+                <section class="toggle-section-flex categorie-leptop">
+                    <img src="svg/laptop.svg" alt="">
+                    <p>Leptop / Notebook</p>
+                </section>
 
-            <section class="toggle-section-flex categorie-tv">
-                <img src="svg/tv.svg" alt="">
-                <p>Televizoare</p>
+                <section class="toggle-section-flex categorie-tv">
+                    <img src="svg/tv.svg" alt="">
+                    <p>Televizoare</p>
+                </section>
+                <section class="toggle-section-flex categorie-audio" >
+                    <img src="svg/audio.svg" alt="">
+                    <p>Sisteme Audio</p>
             </section>
-            <section class="toggle-section-flex categorie-audio" >
-                <img src="svg/audio.svg" alt="">
-                <p>Sisteme Audio</p>
-        </section>
         </section>
 
 
@@ -114,7 +120,7 @@ export default class viewFavorite{
     toCard=(product)=>{
         this.container.innerHTML +=
         `
-        <section class="main-card-categorie card-${product.category}">
+        <section class="favorite-product card-${product.category}">
             <img src="${product.image}" alt="">
             <i class="fas fa-heart"></i>
             <h2>${product.name}</h2>
@@ -139,6 +145,22 @@ export default class viewFavorite{
 
     handleBrand=()=>{
         let nou = new viewUserInterface(this.username);
+    }
+
+    handleAllProducts=()=>{
+        this.allProducts.forEach(e=>{
+            e.addEventListener('click',()=>{
+                let productName = e.children[2].textContent;
+                let product = this.productController.getProductByName(productName);
+
+                let nou = new viewProduct(product,this.username);
+            })
+
+        });
+    }
+
+    handleCardBtn=()=>{
+        let nou = new viewCart(this.username);
     }
 
     handleToggleBtn=()=>{

@@ -652,4 +652,242 @@ footer {
   color: #d7cec7;
 }
 
+.favorite-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  padding: 1rem 0.5rem 0 0.5rem;
+  max-width: 300px;
+  margin: 0 auto;
+}
+@media (min-width: 425px) {
+  .favorite-container {
+    max-width: 500px;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (min-width: 768px) {
+  .favorite-container {
+    max-width: 700px;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+@media (min-width: 1024px) {
+  .favorite-container {
+    max-width: 1100px;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  }
+}
+
+.favorite-product {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 1rem;
+  background-color: white;
+  margin: 0 0.25rem;
+  margin-top: 0.5rem;
+  border-radius: 5px;
+  box-shadow: -1px 4px 14px -2px #dadada;
+  position: relative;
+  transition: 0.3s all;
+  cursor: pointer;
+  max-height: 400px;
+}
+.favorite-product img {
+  width: 100%;
+}
+.favorite-product i {
+  color: #eb0303;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+}
+.favorite-product h2 {
+  font-size: 1.2rem;
+  padding-top: 1rem;
+  padding-bottom: 0;
+}
+.favorite-product p {
+  padding: 0.6rem 0;
+  text-align: center;
+}
+.favorite-product h3 {
+  color: #eb0303;
+}
+
+.favorite-product:hover {
+  box-shadow: -1px 5px 14px -2px #909090;
+}
+
+.cart-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  margin: 0 auto;
+  align-items: center;
+}
+.cart-container .cos-gol-img {
+  display: none;
+  margin-top: 2rem;
+  width: 100px;
+}
+.cart-container .cos-gol-text {
+  display: none;
+  margin-top: 1rem;
+  font-size: 1.3rem;
+}
+
+.cart-product {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 1rem;
+  background-color: white;
+  margin: 0 0.25rem;
+  margin-top: 0.5rem;
+  border-radius: 5px;
+  box-shadow: -1px 4px 14px -2px #dadada;
+  position: relative;
+  max-height: 410px;
+}
+.cart-product img {
+  width: 100%;
+}
+.cart-product i {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 1.5rem;
+  color: #565656;
+  transition: 0.3s all;
+  cursor: pointer;
+}
+.cart-product i:hover {
+  color: #c09f80;
+}
+.cart-product p {
+  font-weight: bold;
+  font-size: 1.1rem;
+  padding: 1rem 0;
+  text-align: center;
+}
+.cart-product select {
+  width: 50px;
+  cursor: pointer;
+}
+.cart-product h3 {
+  padding: 1rem;
+}
+
+.product-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.product-container h3 {
+  font-weight: bold;
+  font-size: 1.5rem;
+  padding: 1.5rem;
+}
+
+.product-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.product-right h3 {
+  padding-top: 0rem;
+  padding-bottom: 1rem;
+  color: red;
+}
+.product-right a:first-of-type {
+  text-align: start;
+}
+.product-right a:first-of-type i {
+  margin-right: 1rem;
+}
+.product-right a {
+  width: 230px;
+  text-align: center;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  background-color: #76323F;
+  border-radius: 5px;
+  margin-bottom: 0.5rem;
+  color: white;
+  font-size: 1.4rem;
+  transition: 0.3s all;
+}
+.product-right a:hover {
+  background-color: #c09f80;
+}
+.product-right a:last-of-type {
+  background-color: #c09f80;
+}
+.product-right a:last-of-type:hover {
+  background-color: #76323F;
+}
+
+.product-left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.product-left img {
+  width: 50px;
+}
+.product-left img:first-of-type {
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+.product-left p {
+  padding: 1rem;
+  font-size: 1.3rem;
+}
+.product-left .descriere {
+  text-align: center;
+}
+
+.cart-sumar {
+  margin-top: 1rem;
+  background-color: #d7cec7;
+  padding: 1rem 2.2rem;
+  text-align: center;
+}
+.cart-sumar p {
+  padding: 0.3rem;
+  font-size: 1.2rem;
+  color: black;
+}
+.cart-sumar p span {
+  font-weight: bold;
+}
+.cart-sumar p:last-of-type {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.cart-sumar a {
+  font-size: 1.5rem;
+  display: inline-block;
+  margin-top: 0.5rem;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  background-color: #76323F;
+  border-radius: 5px;
+  color: white;
+  transition: 0.3s all;
+}
+.cart-sumar a i {
+  margin-left: 0.3rem;
+  font-size: 1.4rem;
+}
+.cart-sumar a:hover {
+  background-color: #c09f80;
+}
+
 /*# sourceMappingURL=style.css.map */

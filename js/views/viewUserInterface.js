@@ -2,6 +2,8 @@ import viewHome from "./viewHome.js"
 import viewFavorite from "./viewFavorite.js"
 import CategoriesController from "../controller/categoriesController.js";
 import ProductsController from "../controller/productsController.js";
+import viewProduct from "./viewProduct.js";
+import viewCart from "./viewCart.js";
 
 export default class viewUserInterface{
     constructor(username){
@@ -28,7 +30,8 @@ export default class viewUserInterface{
         this.favoriteBtn.addEventListener('click',this.handleBigFavorite);
         
         this.cardBtn = document.querySelector('.cart-btn');
-        
+        this.cardBtn.addEventListener('click',this.handleCardBtn);
+
         this.categoryController = new CategoriesController();
         this.setCategories();
         this.setToggleCategories();
@@ -39,6 +42,9 @@ export default class viewUserInterface{
         this.favorite = document.querySelectorAll('.main-card-categorie i');
         this.handleFavoriteStatus();
         this.handleFavorite();
+
+        this.allProducts = document.querySelectorAll('.main-card-categorie');
+        this.handleAllProducts();
     }
 
     header=()=>{
@@ -199,7 +205,6 @@ export default class viewUserInterface{
         });
     }
 
-
     handleFavoriteStatus=()=>{
         let allFavoriteIcons = document.querySelectorAll('.fa-heart');
 
@@ -227,6 +232,23 @@ export default class viewUserInterface{
             }
         }
     }
+
+    handleAllProducts=()=>{
+        this.allProducts.forEach(e=>{
+            e.addEventListener('click',()=>{
+                let productName = e.children[2].textContent;
+                let product = this.productController.getProductByName(productName);
+
+                let nou = new viewProduct(product,this.username);
+            })
+
+        });
+    }
+
+    handleCardBtn=()=>{
+        let nou = new viewCart(this.username);
+    }
+
 
     handleLogOut=()=>{
         let nou = new viewHome();

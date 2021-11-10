@@ -34,6 +34,9 @@ export default class viewHome{
 
         this.favorite = document.querySelectorAll('.main-card-categorie i');
         this.handleFavorite();
+
+        this.allProducts = document.querySelectorAll('.main-card-categorie');
+        this.handleAllProducts();
     }
 
     header=()=>{
@@ -157,6 +160,15 @@ export default class viewHome{
         for(let obj of this.productController.list){
             this.productController.toCategory(obj);
         }
+    }
+
+    handleAllProducts=()=>{
+        this.allProducts.forEach(e=>{
+            e.addEventListener('click',()=>{
+                let nou = new viewLogin();
+            })
+
+        });
     }
 
 
