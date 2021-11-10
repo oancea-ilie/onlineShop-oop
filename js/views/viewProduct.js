@@ -39,11 +39,9 @@ export default class viewProduct{
         this.productController = new ProductsController();
         this.productContainer = document.querySelector('.product-container');
         this.productDescription();
-        // this.favoriteStatus = this.favoriteCheck();
-        // this.handleFavoriteBtn();
 
         this.addCart = document.querySelector('.add-cart');
-        this.addCart.addEventListener('click',this.handleCartBtn);
+        this.addCart.addEventListener('click',this.handleAddCart);
 
     }
 
@@ -111,7 +109,7 @@ export default class viewProduct{
         </main>
         `
     }
-
+    
     productDescription=()=>{
         this.productContainer.innerHTML +=
         `
@@ -134,34 +132,24 @@ export default class viewProduct{
         `
     }
 
-    favoriteCheck=()=>{
-        let i = 0;
+    handleAddCart=(e)=>{
+        e.preventDefault();
+        let product = this.productContainer.children[0].textContent;
+        let status = this.productController.getProductCartSatus(product);
+        let productRight = document.querySelector('.product-right');
 
-        if(this.product.favariteStatus ==0){
-            let productRight = document.querySelector('.product-right');
+        if(status ==0){
+            this.productController.setProductCartStatus(product,1);
 
             productRight.innerHTML +=
             `
-            <a href="#" class="add-favorite"><i class="far fa-heart"></i> Adauga la Favorite</a>
+                <p class="add-notificare">Produsul ${this.product.name} a fost adaugat in cos!</p>
             `
-
-            i = 1;
-        }
-        return i;
-    }
-
-    handleAddCart=()=>{
-
-    }
-
-    handleAddFavorite=()=>{
-        if(this.favoriteStatus == 1){
-            let addFavorite = document.querySelector('.add-favorite');
-        
-            addFavorite.addEventListener('click',()=>{
-                this.productController.setFavoriteProduct(this.product.name,1);
-                addFavorite.style.display = 'none';
-            });
+        }else{
+            productRight.innerHTML +=
+            `
+                <p class="add-notificare" >Produsul ${this.product.name} este deja in cos!</p>
+            `
         }
     }
 

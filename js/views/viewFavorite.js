@@ -34,6 +34,10 @@ export default class viewFavorite{
 
         this.container = document.querySelector('.favorite-container'); 
         this.productController = new ProductsController();
+        
+        this.favoriteImgGol = document.querySelector('.favorite-gol-img');
+        this.favoriteTextGol = document.querySelector('.favorite-gol-text');
+
         this.setProducts();
         this.favoriteBtns = document.querySelectorAll(".favorite-product i");
         this.handleFavoriteBtn();
@@ -103,18 +107,34 @@ export default class viewFavorite{
 
 
             <section class="favorite-container">
-            
+                <img src="img/favorite.png" class="favorite-gol-img" alt="">
+                <p class="favorite-gol-text">Ups, nu sunt produse favorite!</p>
+
             </section>
         </main>
         `
     }
 
     setProducts=()=>{
+
+        let i = 0;
+
         this.productController.list.forEach(e=>{
             if(e.favariteStatus == 1){
                 this.toCard(e);
+                i = 1;
             }
         });
+
+        if(i ==1){
+            this.favoriteImgGol.style.display = 'none';
+            this.favoriteTextGol.style.display = 'none';
+
+        }else{
+            this.favoriteImgGol.style.display = 'block';
+            this.favoriteTextGol.style.display = 'block';
+        }
+
     }
 
     toCard=(product)=>{
@@ -138,7 +158,13 @@ export default class viewFavorite{
                 let parent = e.parentNode;
                 this.container.removeChild(parent);
                 this.productController.setFavoriteProduct(productName,0);
-               console.log( this.favoriteBtns.length);
+
+                    if(this.container.children.length == 2){
+                        console.log('test');
+                        // NUU MERGE NU INTELEG DE CE!
+                        this.favoriteImgGol.style.display= 'block';
+                        this.favoriteTextGol.style.display = 'block';
+                    }
             });
         })
     }
@@ -149,11 +175,14 @@ export default class viewFavorite{
 
     handleAllProducts=()=>{
         this.allProducts.forEach(e=>{
-            e.addEventListener('click',()=>{
-                let productName = e.children[2].textContent;
-                let product = this.productController.getProductByName(productName);
+            e.addEventListener('click',(el)=>{
+                let fav = e.children[1];
+                if(el.target!= fav){
+                    let productName = e.children[2].textContent;
+                    let product = this.productController.getProductByName(productName);
 
-                let nou = new viewProduct(product,this.username);
+                    let nou = new viewProduct(product,this.username);
+                }
             })
 
         });

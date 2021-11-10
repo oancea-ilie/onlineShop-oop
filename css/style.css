@@ -658,6 +658,15 @@ footer {
   padding: 1rem 0.5rem 0 0.5rem;
   max-width: 300px;
   margin: 0 auto;
+  justify-items: center;
+}
+.favorite-container .favorite-gol-img {
+  width: 150px;
+  display: none;
+}
+.favorite-container .favorite-gol-text {
+  display: none;
+  font-size: 1.3rem;
 }
 @media (min-width: 425px) {
   .favorite-container {
@@ -774,10 +783,17 @@ footer {
   text-align: center;
 }
 .cart-product select {
+  border-radius: 5px;
+  background-color: #76323F;
+  color: white;
+  padding: 0.2rem 0.5rem;
+  font-size: 1.2rem;
+  border: none;
   width: 50px;
   cursor: pointer;
 }
 .cart-product h3 {
+  color: red;
   padding: 1rem;
 }
 
@@ -830,6 +846,12 @@ footer {
 }
 .product-right a:last-of-type:hover {
   background-color: #76323F;
+}
+.product-right .add-notificare {
+  color: green;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
 }
 
 .product-left {

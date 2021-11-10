@@ -39,9 +39,17 @@ export default class viewCart{
 
         this.container = document.querySelector('.cart-container'); 
         this.productController = new ProductsController();
+        
         this.getAllProducts();
-        // this.allProducts = document.querySelectorAll('.favorite-product');
-        // this.handleAllProducts();
+        this.allProducts = document.querySelectorAll('.cart-product');
+
+        this.closeBtns = document.querySelectorAll(".cart-product i");
+        this.handleCloseBtn();
+        
+
+        this.handlePriceProducts();
+        this.handleTotalPrice();
+
     }
 
     header=()=>{
@@ -125,10 +133,10 @@ export default class viewCart{
 
 
         if(i ==1){
+            this.setCartSumar();
             this.cosGolImg.style.display = 'none';
             this.cosGolText.style.display = 'none';
 
-            this.setCartSumar();
 
         }else{
             this.cosGolImg.style.display = 'block';
@@ -150,7 +158,7 @@ export default class viewCart{
                 <option>4</option>
                 <option>5</option>
             </select>
-            <h3 class="pret-produs-cart">${obj.price} Lei</h3>
+            <h3 class="pret-produs-cart">Total: ${obj.price} Lei</h3>
         </section>
         `
 
@@ -160,29 +168,80 @@ export default class viewCart{
         this.container.innerHTML +=
         `
         <section class="cart-sumar">
-            <p>Cost produse: <span>${obj.price}</span> lei</p>
-            <p>Cost livrare: <span>15</span> lei</p>
-            <p>Total: 4015 lei</p>
+            <p>Cost produse: <span class="cost-total-produse">230120 Lei</span> lei</p>
+            <p>Cost livrare: <span class="cost-livrare-produse">15</span> lei</p>
+            <p class="total-cost-produse">Total: 4015 lei</p>
             <a href="#">Trimite comanda <i class="fas fa-angle-double-right"></i></a>
         </section>
         `
+    }
+
+    handlePriceProducts=()=>{
+        this.allProducts.forEach(e=>{
+            let select = e.children[3];
+            let pretProdus = e.children[4];
+            let currentProduct = this.productController.getProductByName(e.children[2].textContent);
+
+            select.addEventListener('change',()=>{
+                let pretNou = parseInt(currentProduct.price) * parseInt(select.value);
+                pretProdus.textContent = `Total: ${pretNou} Lei`;
+
+                this.handleTotalPrice();
+            });
+
+        })
+
+    }
+
+    handleTotalPrice=()=>{
+        this.allProducts = document.querySelectorAll('.cart-product');
+        let aux = 0;
+        this.allProducts.forEach(e=>{
+            let pretProdus = e.children[4].textContent;
+            let pretNou = pretProdus.split(' ');
+            let pretFinal = parseInt(pretNou[1]);
+
+            aux += pretFinal;
+        });
+
+        let costProduse = document.querySelector('.cost-total-produse');
+            costProduse.textContent = aux;
+        
+        let costLivrare = document.querySelector(".cost-livrare-produse").textContent;
+
+        let total = document.querySelector('.total-cost-produse');
+
+        total.textContent =` ${ parseInt(costProduse.textContent) + parseInt(costLivrare)} Lei`;
+
+
     }
 
     handleBrand=()=>{
         let nou = new viewUserInterface(this.username);
     }
 
-    // handleAllProducts=()=>{
-    //     this.allProducts.forEach(e=>{
-    //         e.addEventListener('click',()=>{
-    //             let productName = e.children[2].textContent;
-    //             let product = this.productController.getProductByName(productName);
+    handleCloseBtn=()=>{
+        this.closeBtns.forEach(e=>{
+            e.addEventListener('click',()=>{
+                let productName = e.parentNode.children[2].textContent;
+                let parent = e.parentNode;
+                this.container.removeChild(parent);
+                this.productController.setProductCartStatus(productName,0);
 
-    //             let nou = new viewProduct(product,this.username);
-    //         })
+                this.handleTotalPrice();
+                let cartProduct = document.querySelector('.cart-product');
 
-    //     });
-    // }
+                if(cartProduct == null){
+                    let cartSumar = document.querySelector('.cart-sumar');
+                    this.container.removeChild(cartSumar);
+
+                    //ASTEA 2 NU MERG!
+                    this.cosGolText.style.display = 'block';
+                    this.cosGolImg.style.display = 'block';
+                }
+            });
+        })
+    }
     
     handleBigFavorite=()=>{
         let nou = new viewFavorite(this.username);

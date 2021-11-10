@@ -179,9 +179,26 @@ export default class ProductsController{
                 return obj;
             }
         }
-        
+
     }
 
+    setProductCartStatus=(name,status)=>{
+        this.list.forEach(e=>{
+            if(name == e.name){
+                e.cartStatus = status;
+            }
+        });
+
+        this.reload();
+    }
+
+    getProductCartSatus=(productName)=>{
+        for(let obj of this.list){
+            if(productName == obj.name){
+                return obj.cartStatus;
+            }
+        }
+    }
 
     
 

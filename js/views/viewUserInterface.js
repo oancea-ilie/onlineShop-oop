@@ -25,10 +25,10 @@ export default class viewUserInterface{
         this.logOutBtn.addEventListener('click',this.handleLogOut);
 
         this.toggleBtn.addEventListener("click",this.handleToggleBtn);
-
+        
         this.favoriteBtn = document.querySelector('.favorite-btn');
         this.favoriteBtn.addEventListener('click',this.handleBigFavorite);
-        
+
         this.cardBtn = document.querySelector('.cart-btn');
         this.cardBtn.addEventListener('click',this.handleCardBtn);
 
@@ -105,27 +105,8 @@ export default class viewUserInterface{
             </section>
         </section>
             <section class="main-img-container">
-                <img src="img/cupon.jpg" alt="">
-                <h2>Inregistreaza-te acum si primesti un voucher in valoare de <span>20 de lei!</span></h2>
+                <h2>Ai primit un voucher in valoare de: <span>20 de lei!</span></h2>
             </section>
-
-            <section class="main-avantaje">
-                <h2>Avantaje</h2>
-                <section class="main-avantaje-card">
-                    <i class="fas fa-hand-holding-usd"></i>
-                    <p>Economisesti bani</p>
-                </section>
-
-                <section class="main-avantaje-card">
-                    <i class="fas fa-shield-alt"></i>
-                    <p>Garantie extinsa</p>
-                </section>
-                <section class="main-avantaje-card">
-                    <i class="fas fa-truck"></i>
-                    <p>Transport gratuit</p>
-                </section>
-            </section>
-
             <section class="main-container-categorii">
             
             </section>
@@ -179,10 +160,11 @@ export default class viewUserInterface{
 
     handleFavorite=()=>{
         this.favorite.forEach((e)=>{
-            let productName = e.parentNode.children[2].textContent;
-            let status= this.productController.getFavoriteStatus(productName);
 
                 e.addEventListener('click',()=>{
+                    let productName = e.parentNode.children[2].textContent;
+                    let status= this.productController.getFavoriteStatus(productName);
+                    
                     if(status ==0){
                         this.productController.setFavoriteProduct(productName,1);
                         e.classList.remove('far');
@@ -235,11 +217,14 @@ export default class viewUserInterface{
 
     handleAllProducts=()=>{
         this.allProducts.forEach(e=>{
-            e.addEventListener('click',()=>{
-                let productName = e.children[2].textContent;
-                let product = this.productController.getProductByName(productName);
-
-                let nou = new viewProduct(product,this.username);
+            e.addEventListener('click',(el)=>{
+                let fav = e.children[1];
+                if(el.target!= fav){
+                    let productName = e.children[2].textContent;
+                    let product = this.productController.getProductByName(productName);
+    
+                    let nou = new viewProduct(product,this.username);
+                }
             })
 
         });
